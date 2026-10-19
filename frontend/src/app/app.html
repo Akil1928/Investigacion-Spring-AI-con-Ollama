@@ -1,0 +1,69 @@
+<div class="layout">
+  <aside class="lateral">
+    <div class="lateral-cab">
+      <h1>Chat local</h1>
+      <p class="sub">Spring AI + Ollama</p>
+      <button class="btn-nueva" (click)="nueva()">+ Nueva conversación</button>
+    </div>
+
+    <ul class="lista">
+      @for (c of conversaciones(); track c.id) {
+        <li [class.activa]="c.id === seleccionada()?.id" (click)="seleccionar(c)">
+          <span class="titulo">{{ c.titulo }}</span>
+          <button class="btn-borrar" title="Eliminar" (click)="eliminar(c, $event)">×</button>
+        </li>
+      } @empty {
+        <li class="vacio">Sin conversaciones todavía</li>
+      }
+    </ul>
+
+    <footer class="pie">IF0009 · Desarrollo de Software IV<br />Carnés: {{ autores }}</footer>
+  </aside>
+
+  <main class="principal">
+    @if (seleccionada(); as conv) {
+      <header class="cabecera">
+        <h2>{{ conv.titulo }}</h2>
+        @if (ultimoTiempo() !== null) {
+          <span class="tiempo">Última respuesta: {{ (ultimoTiempo()! / 1000).toFixed(1) }} s</span>
+        }
+      </header>
+
+      <div class="mensajes" #caja>
+        @for (m of mensajes(); track $index) {
+          <div class="burbuja" [class.usuario]="m.rol === 'USER'" [class.asistente]="m.rol !== 'USER'">
+            {{ m.texto }}
+          </div>
+        }
+        @if (cargando()) {
+          <div class="burbuja asistente pensando">El modelo está respondiendo…</div>
+        }
+      </div>
+
+      @if (error()) {
+        <div class="error">{{ error() }}</div>
+      }
+
+      <div class="entrada">
+        <textarea
+          rows="2"
+          placeholder="Escribe tu mensaje (Enter envía, Shift+Enter nueva línea)"
+          [value]="texto()"
+          [disabled]="cargando()"
+          (input)="alEscribir($event)"
+          (keydown.enter)="alPresionarEnter($event)"
+        ></textarea>
+        <button (click)="enviar()" [disabled]="cargando() || !texto().trim()">Enviar</button>
+      </div>
+    } @else {
+      <div class="bienvenida">
+        <h2>Asistente de chat local</h2>
+        <p>Crea una conversación nueva o selecciona una existente para comenzar.</p>
+        <p class="nota">El modelo se ejecuta en tu equipo con Ollama; el historial se guarda en SQL Server.</p>
+        @if (error()) {
+          <div class="error">{{ error() }}</div>
+        }
+      </div>
+    }
+  </main>
+</div>

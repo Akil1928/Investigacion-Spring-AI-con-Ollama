@@ -1,0 +1,45 @@
+:host { display: block; height: 100vh; }
+* { box-sizing: border-box; }
+
+.layout { display: flex; height: 100%; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1f2937; }
+
+.lateral { width: 280px; background: #111827; color: #e5e7eb; display: flex; flex-direction: column; }
+.lateral-cab { padding: 18px 16px 12px; }
+.lateral-cab h1 { margin: 0; font-size: 20px; }
+.sub { margin: 2px 0 14px; font-size: 12px; color: #9ca3af; }
+.btn-nueva { width: 100%; padding: 10px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+.btn-nueva:hover { background: #1d4ed8; }
+
+.lista { list-style: none; margin: 0; padding: 8px; overflow-y: auto; flex: 1; }
+.lista li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+.lista li:hover { background: #1f2937; }
+.lista li.activa { background: #374151; }
+.lista li.vacio { color: #6b7280; cursor: default; }
+.lista li.vacio:hover { background: transparent; }
+.titulo { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btn-borrar { background: transparent; border: 0; color: #9ca3af; font-size: 18px; cursor: pointer; }
+.btn-borrar:hover { color: #f87171; }
+.pie { padding: 12px 16px; font-size: 11px; color: #6b7280; border-top: 1px solid #1f2937; }
+
+.principal { flex: 1; display: flex; flex-direction: column; background: #f3f4f6; min-width: 0; }
+.cabecera { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; }
+.cabecera h2 { margin: 0; font-size: 18px; }
+.tiempo { font-size: 12px; color: #6b7280; }
+
+.mensajes { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.burbuja { max-width: 75%; padding: 10px 14px; border-radius: 14px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.burbuja.usuario { align-self: flex-end; background: #2563eb; color: #fff; border-bottom-right-radius: 4px; }
+.burbuja.asistente { align-self: flex-start; background: #fff; border: 1px solid #e5e7eb; border-bottom-left-radius: 4px; }
+.burbuja.pensando { color: #6b7280; font-style: italic; }
+
+.error { margin: 0 24px 8px; padding: 10px 14px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; border-radius: 8px; font-size: 14px; }
+
+.entrada { display: flex; gap: 10px; padding: 14px 24px 20px; background: #fff; border-top: 1px solid #e5e7eb; }
+.entrada textarea { flex: 1; resize: none; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; }
+.entrada textarea:focus { outline: 2px solid #93c5fd; border-color: #3b82f6; }
+.entrada button { padding: 0 22px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+.entrada button:disabled { background: #9ca3af; cursor: not-allowed; }
+
+.bienvenida { margin: auto; text-align: center; padding: 24px; max-width: 460px; }
+.bienvenida h2 { margin-bottom: 8px; }
+.nota { color: #6b7280; font-size: 14px; }
