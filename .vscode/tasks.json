@@ -1,11 +1,22 @@
 {
   "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "dbPassword",
+      "type": "promptString",
+      "description": "Contraseña del usuario de SQL Server",
+      "password": true
+    }
+  ],
   "tasks": [
     {
       "label": "Backend: iniciar Spring Boot",
       "type": "shell",
       "command": ".\\mvnw.cmd spring-boot:run",
-      "options": { "cwd": "${workspaceFolder}/backend" },
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": { "DB_PASSWORD": "${input:dbPassword}" }
+      },
       "problemMatcher": []
     },
     {

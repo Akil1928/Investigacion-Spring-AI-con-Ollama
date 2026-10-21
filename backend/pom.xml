@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>cr.ac.ucr</groupId>
-    <artifactId>chat-local-c4l113-c4h741</artifactId>
+    <artifactId>chat-local-c4l113-c4h741-c5h753</artifactId>
     <version>1.0.0</version>
-    <name>chat-local-c4l113-c4h741</name>
-    <description>IF0009 - Integración de Spring AI con Ollama (C4L113 / C4H741)</description>
+    <name>chat-local-c4l113-c4h741 - c5h753</name>
+    <description>IF0009 - Integración de Spring AI con Ollama (C4L113 / C4H741 / C5H753)</description>
 
     <properties>
         <java.version>17</java.version>

@@ -1,7 +1,7 @@
 # Integración de Spring AI con Ollama — Parte práctica
 
 **IF0009 Desarrollo de Software IV · Universidad de Costa Rica, Recinto de Paraíso**
-**Integrantes (carnés):** C4L113 · C4H741
+**Integrantes (carnés):** C4L113 · C4H741· C5H753
 
 Asistente de chat que se ejecuta **100 % en local**: Angular (frontend) → Spring Boot + Spring AI (backend) → Ollama (modelo) y SQL Server (persistencia).
 
@@ -40,8 +40,10 @@ Ollama queda escuchando en `http://localhost:11434`. El modelo se cambia en `bac
 
 ## 3. Backend (VS Code)
 Abra la carpeta raíz en VS Code y, en una terminal:
+Si usa la tarea de VS Code, le pedirá la contraseña
 ```powershell
 cd backend
+$env:DB_PASSWORD = "su_clave" 
 .\mvnw.cmd spring-boot:run
 ```
 (o use la tarea *Terminal → Run Task → Backend: iniciar Spring Boot*). La API queda en `http://localhost:8080`.
@@ -65,10 +67,13 @@ Abra `http://localhost:4200`.
 | DELETE | `/api/conversaciones/{id}` | Elimina la conversación y sus mensajes |
 
 ## Prueba rápida sin frontend
+En PowerShell (use texto sin tildes en estas pruebas):
 ```powershell
-curl -X POST http://localhost:8080/api/conversaciones -H "Content-Type: application/json" -d "{}"
-curl -X POST http://localhost:8080/api/conversaciones/<ID>/mensajes -H "Content-Type: application/json" -d "{\"texto\":\"Mi nombre es Ana\"}"
-curl -X POST http://localhost:8080/api/conversaciones/<ID>/mensajes -H "Content-Type: application/json" -d "{\"texto\":\"¿Cómo me llamo?\"}"
+$c  = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/conversaciones -ContentType "application/json" -Body '{}'
+$id = $c.id
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/conversaciones/$id/mensajes" -ContentType "application/json" -Body '{"texto":"Mi nombre es Ana"}'
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/conversaciones/$id/mensajes" -ContentType "application/json" -Body '{"texto":"Como me llamo?"}'
+Invoke-RestMethod -Uri "http://localhost:8080/api/conversaciones/$id/mensajes"
 ```
 La segunda pregunta comprueba que el modelo usa el historial (memoria de conversación). Para la sección 4.6 del documento, reinicie el backend y consulte de nuevo el historial: debe seguir allí. Use `database/02_consultas_de_prueba.sql` para ver los datos en SSMS.
 
@@ -83,4 +88,4 @@ La segunda pregunta comprueba que el modelo usa el historial (memoria de convers
 | Primera respuesta muy lenta | Normal: Ollama carga el modelo en memoria; las siguientes son más rápidas (`keep_alive` = 5 min). |
 | Error de CORS en el navegador | El frontend debe correr en `http://localhost:4200` (propiedad `app.cors.allowed-origin`). |
 
-> Seguridad: la contraseña de la base está en `application.properties` solo por ser un trabajo académico. No suba credenciales reales a un repositorio público.
+> Seguridad: la contraseña de la base NO se guarda en el repositorio. Se entrega por la variable de entorno `DB_PASSWORD` (o la pide la tarea de VS Code). Opcionalmente `DB_URL` y `DB_USER`.

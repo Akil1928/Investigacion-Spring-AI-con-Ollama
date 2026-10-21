@@ -12,7 +12,7 @@ export class App implements OnInit {
   private readonly chat = inject(ChatService);
   private readonly caja = viewChild<ElementRef<HTMLDivElement>>('caja');
 
-  readonly autores = 'C4L113 / C4H741';
+  readonly autores = 'C4L113 / C4H741 / C5H753';
 
   readonly conversaciones = signal<Conversacion[]>([]);
   readonly seleccionada = signal<Conversacion | null>(null);
